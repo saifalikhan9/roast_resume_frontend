@@ -90,7 +90,7 @@ export default function RoastPage() {
       formData.append("role", role);
       formData.append("language", language);
 
-      const res = await fetch("http://localhost:3001/generateRoast", {
+      const res = await fetch("https://resume-roast-backend2.vercel.app/generateRoast", {
         method: "POST",
         body: formData,
       });
