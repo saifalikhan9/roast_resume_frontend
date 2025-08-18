@@ -3,8 +3,13 @@ import Link from "next/link";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
-
-export const Roast_Result = ({ handleCopyResult, copied,roastResult,handleTryAgain }) => {
+interface RoastResultProps {
+  handleCopyResult : ()=>Promise<void> 
+  copied : boolean
+  roastResult : string
+  handleTryAgain : ()=> void
+}
+export const Roast_Result : React.FC<RoastResultProps> = ({ handleCopyResult, copied,roastResult,handleTryAgain }) => {
   return (
      <div className="space-y-6">
             <div className="text-center mb-8">

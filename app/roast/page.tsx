@@ -16,9 +16,9 @@ import {
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Roast_Result } from "@/components/roastResult";
-import { File_Upload_Section } from "@/components/fileUpload";
-import { Tone_Section } from "@/components/tone-section";
 import Roaster_Section from "@/components/roaster-section";
+import { FileUploadSection } from "@/components/fileUpload";
+import { ToneSection } from "@/components/tone-section";
 
 export default function RoastPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -90,13 +90,16 @@ export default function RoastPage() {
       formData.append("role", role);
       formData.append("language", language);
 
-      const res = await fetch("https://resume-roast-backend2.vercel.app/generateRoast", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/generateRoast`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await res.json();
-      console.log(data);
+
       if (!data) alert("data is empmty");
       const clean_text = cleanText(data.text);
       setRoastResult(clean_text);
@@ -115,6 +118,7 @@ export default function RoastPage() {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       } catch (error) {
+        console.log(error);
         alert("Failed to copy to clipboard");
       }
     }
@@ -213,7 +217,7 @@ export default function RoastPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-8">
-              <File_Upload_Section
+              <FileUploadSection
                 dragActive={dragActive}
                 file={file}
                 handleDrag={handleDrag}
@@ -221,7 +225,7 @@ export default function RoastPage() {
                 handleFileChange={handleFileChange}
               />
 
-              <Tone_Section
+              <ToneSection
                 tone={tone}
                 toneOptions={toneOptions}
                 setTone={setTone}
