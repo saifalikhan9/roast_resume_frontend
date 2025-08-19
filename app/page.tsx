@@ -16,7 +16,7 @@ export default function HomePage() {
                 Resume Roaster
               </h1>
             </div>
-            <BuyMeCoffeeButton size="sm" />
+            <BuyMeCoffeeButton size="md" />
           </div>
         </div>
       </nav>
