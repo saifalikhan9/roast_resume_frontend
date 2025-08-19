@@ -19,6 +19,7 @@ import { Roast_Result } from "@/components/roastResult";
 import Roaster_Section from "@/components/roaster-section";
 import { FileUploadSection } from "@/components/fileUpload";
 import { ToneSection } from "@/components/tone-section";
+import { Badge } from "@/components/ui/badge";
 
 export default function RoastPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -29,7 +30,7 @@ export default function RoastPage() {
   const [dragActive, setDragActive] = useState(false);
   const [roastResult, setRoastResult] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-
+  const [credits, setCreadits] = useState<number>();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
@@ -100,7 +101,8 @@ export default function RoastPage() {
 
       const data = await res.json();
 
-      if (!data) alert("data is empmty");
+      if (!data) alert("Not getting Data from the backend");
+      setCreadits(data?.credits);
       const clean_text = cleanText(data.text);
       setRoastResult(clean_text);
     } catch (error) {
@@ -214,6 +216,11 @@ export default function RoastPage() {
               <p className="text-muted-foreground text-lg">
                 Upload your resume and customize your roasting experience
               </p>
+              {credits && (
+                <Badge className="mt-3 font-bold tracking-widest p-1 px-3">
+                  Creadits {credits}
+                </Badge>
+              )}
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-8">

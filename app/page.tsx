@@ -39,6 +39,14 @@ export default function HomePage() {
             tailored to your career aspirations. Choose your tone, pick your
             roaster, and get ready to laugh while you learn.
           </p>
+          <div className="bg-card/50 border border-primary/20 rounded-lg p-4 mb-9 max-w-md mx-auto">
+        
+            <p className="text-muted-foreground text-sm">
+              You will only get{' '}
+              <span className="text-primary font-semibold">5 free roasts</span>{" "}
+              every month
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/roast">
               <Button
@@ -48,13 +56,15 @@ export default function HomePage() {
                 Get Started
               </Button>
             </Link>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-border hover:bg-card transition-colors bg-transparent"
-            >
-              See Example Roast
-            </Button>
+            <Link href="/example-roast">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-border hover:bg-card transition-colors bg-transparent"
+              >
+                See Example Roast
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -224,8 +234,8 @@ export default function HomePage() {
             Ready to Get Roasted?
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of job seekers who&apos;ve improved their resumes through
-            the power of humor and AI.
+            Join thousands of job seekers who&apos;ve improved their resumes
+            through the power of humor and AI.
           </p>
           <Link href="/roast">
             <Button

@@ -34,7 +34,7 @@ const sizeVariants = {
 
 export function BuyMeCoffeeButton({
   size = "lg",
-  href = "https://buymeacoffee.com/yourname",
+  href = "https://buymeacoffee.com/myname14sas",
   className,
 }: BuyMeCoffeeButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
