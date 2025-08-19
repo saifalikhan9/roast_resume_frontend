@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Coffee, CupSoda } from "lucide-react";
+import { Coffee } from "lucide-react";
 
 interface BuyMeCoffeeButtonProps {
   size?: "sm" | "md" | "lg" | "xl";
