@@ -1,8 +1,6 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -30,7 +28,21 @@ export default function RoastPage() {
   const [dragActive, setDragActive] = useState(false);
   const [roastResult, setRoastResult] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [credits, setCreadits] = useState<number>();
+  const [credits, setCredits] = useState();
+  useEffect(() => {
+    const getCredits = async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/getCredits`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data, "dataaa");
+        setCredits(data.credits);
+      }
+    };
+    getCredits();
+  }, []);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
@@ -98,13 +110,12 @@ export default function RoastPage() {
           body: formData,
         }
       );
-
-      const data = await res.json();
-
-      if (!data) alert("Not getting Data from the backend");
-      setCreadits(data?.credits);
-      const clean_text = cleanText(data.text);
-      setRoastResult(clean_text);
+      if (res.ok) {
+        const data = await res.json();
+        const clean_text = cleanText(data.text);
+        setCredits(data?.credits);
+        setRoastResult(clean_text);
+      }
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -216,11 +227,9 @@ export default function RoastPage() {
               <p className="text-muted-foreground text-lg">
                 Upload your resume and customize your roasting experience
               </p>
-              {credits && (
-                <Badge className="mt-3 font-bold tracking-widest p-1 px-3">
-                  Creadits {credits}
-                </Badge>
-              )}
+              <Badge className="mt-3 font-bold tracking-widest p-1 px-3">
+                Credits {credits}
+              </Badge>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-8">
